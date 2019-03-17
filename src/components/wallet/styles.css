@@ -1,0 +1,50 @@
+#wallet-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 20px;
+}
+
+.wallet-td {
+    padding: 10px;
+    border: 1px dotted;
+}
+
+#exchange-table {
+    width: 100%;
+    font-size: 30px;
+}
+
+.exchange-td {
+    padding: 5px 31px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#exchange-arrow {
+    width: 150px;
+}
+
+.crypto-price-exchange {
+    background: #2d2d2d;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.exchange-select {
+    font-size: 30px;
+    padding: 5px;
+}
+
+#exchange-amount {
+    font-size: 20px;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
+#exchange-submit {
+    font-size: 25px;
+    width: 100%;
+    padding: 10px;
+}
