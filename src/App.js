@@ -4,8 +4,8 @@ import './App.css';
 import Header from './components/layout/Header';
 import Menu from './components/layout/Menu';
 import Footer from './components/layout/Footer';
-import Market from './components/market/index';
-import Wallet from './components/wallet/index';
+import Market from './components/Market/index';
+import Wallet from './components/Wallet/index';
 
 class App extends Component {
 
