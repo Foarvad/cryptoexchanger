@@ -10,7 +10,7 @@ const linkPressedStyle = {
 }
 const tabs = ['market', 'wallet'];
 
-export default class Menu extends Component {
+class Menu extends Component {
     constructor() {
         super();
         this.state = {
@@ -40,3 +40,5 @@ export default class Menu extends Component {
         )
     }
 }
+
+export default Menu

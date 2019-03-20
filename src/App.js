@@ -27,8 +27,8 @@ class App extends Component {
           </div>
         </div>
       </Router>
-    );
+    )
   }
 }
 
-export default App;
+export default App

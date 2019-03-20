@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Wallet from './Wallet';
 import Exchange from './Exchange';
 
-export default class index extends Component {
+class index extends Component {
     render() {
         return (
             <div>
@@ -16,3 +16,5 @@ export default class index extends Component {
         )
     }
 }
+
+export default index
