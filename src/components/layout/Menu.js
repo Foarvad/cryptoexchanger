@@ -1,3 +1,5 @@
+// src/components/layout/Header.js
+
 import React, { Component } from 'react';
 import './styles.css';
 import { Link } from 'react-router-dom';
@@ -6,31 +8,34 @@ const linkPressedStyle = {
     background: '#dbdbdb',
     color: '#2d2d2d'
 }
-
-const emptyState = {
-    market: {},
-    wallet: {}
-}
+const tabs = ['market', 'wallet'];
 
 export default class Menu extends Component {
     constructor() {
         super();
         this.state = {
-            market: linkPressedStyle
-        };
+            activeTab: 0
+        }
     }
-    linkClick = (e) => {
+    linkClick = e => {
         const { name } = e.target;
-        this.setState(emptyState, () => {
-            this.setState({
-                [name]: linkPressedStyle
-            })
+        this.setState({
+            activeTab: +name
         })
     }
     render() {
         return (
             <div id="menu">
-                {['market', 'wallet'].map(value => (<Link onClick={this.linkClick} style={this.state[value]} className="menu-item" key={value} name={value} to={"/" + value}>{value.charAt(0).toUpperCase() + value.slice(1)}</Link>))}
+                {tabs.map((value, i) => (
+                    <Link
+                        onClick={this.linkClick}
+                        style={Object.assign({}, this.state.activeTab === i ? linkPressedStyle : {}, { width: 100 / tabs.length + '%' })}
+                        className="menu-item"
+                        key={value}
+                        name={i}
+                        to={"/" + value}>
+                        {value.charAt(0).toUpperCase() + value.slice(1)}
+                    </Link>))}
             </div>
         )
     }

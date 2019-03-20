@@ -1,3 +1,5 @@
+// src/components/Wallet/index.js
+
 import React, { Component } from 'react';
 import Wallet from './Wallet';
 import Exchange from './Exchange';

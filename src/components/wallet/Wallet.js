@@ -1,3 +1,5 @@
+// src/components/Wallet/Wallet.js
+
 import React, { Component } from 'react'
 import './styles.css';
 
@@ -6,14 +8,16 @@ export default class Wallet extends Component {
         return (
             <div>
                 <table id="wallet-table">
-                    <tr>
-                        <td class="wallet-td">USD: <b>0</b></td>
-                        <td class="wallet-td">BTC: <b>0</b></td>
-                    </tr>
-                    <tr>
-                        <td class="wallet-td">ETH: <b>0</b></td>
-                        <td class="wallet-td">EOS: <b>0</b></td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td className="wallet-td">USD: <b>0</b></td>
+                            <td className="wallet-td">BTC: <b>0</b></td>
+                        </tr>
+                        <tr>
+                            <td className="wallet-td">ETH: <b>0</b></td>
+                            <td className="wallet-td">EOS: <b>0</b></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         )

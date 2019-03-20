@@ -1,11 +1,14 @@
-import React, { Component } from 'react'
+// src/components/layout/Footer.js
 
-export default class Footer extends Component {
-    render() {
-        return (
-            <div id="footer">
-                {this.props.text}
-            </div>
-        )
-    }
+import React from 'react'
+import './styles.css';
+
+function Footer({ text }) {
+    return (
+        <div id="footer">
+            {text}
+        </div>
+    )
 }
+
+export default Footer

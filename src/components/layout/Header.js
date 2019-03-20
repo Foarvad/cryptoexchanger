@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+// src/components/layout/Header.js
+
+import React from 'react';
 import './styles.css';
 
-export default class Header extends Component {
-  render() {
-    return (
-      <div>
-        <header>
-          {this.props.text}
-        </header>
-      </div>
-    )
-  }
+function Header({ text }) {
+  return (
+    <header>
+      {text}
+    </header>
+  )
 }
+
+export default Header
