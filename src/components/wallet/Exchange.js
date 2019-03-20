@@ -3,30 +3,42 @@
 import React, { Component } from 'react'
 import './styles.css';
 
+const currencies = ['USD', 'BTC', 'ETH', 'EOS'];
+
+const CurrencyDropDown = ({ fromOrTo, currencies, context }) => ( // context = this
+    <select name={fromOrTo} defaultValue={context.state.from} onChange={context.pairChange} className="exchange-select">
+        {currencies.filter(curr => context.state[fromOrTo === 'to' ? 'from' : 'to'] !== curr).map(curr => <option key={curr}>{curr}</option>)}
+    </select>
+)
+
 class Exchange extends Component {
+    constructor() {
+        super();
+        this.state = {
+            from: 'USD',
+            to: 'BTC'
+        }
+        this.pairChange = this.pairChange.bind(this);
+    }
+    pairChange(e) {
+        const { name, value } = e.target;
+        const newState = { ...this.state, [name]: value };
+        this.setState(newState);
+    }
+
     render() {
         return (
             <table id="exchange-table">
                 <tbody>
                     <tr>
                         <td className="exchange-td">
-                            <select className="exchange-select">
-                                <option>USD</option>
-                                <option>BTC</option>
-                                <option>ETH</option>
-                                <option>EOS</option>
-                            </select>
+                            <CurrencyDropDown fromOrTo='from' currencies={currencies} context={this} />
                         </td>
                         <td className="exchange-td">
-                            <div className="crypto-price-exchange">0.751</div>
+                            <div className="crypto-price-exchange" title='0.751'>0.751</div>
                         </td>
                         <td className="exchange-td">
-                            <select className="exchange-select">
-                                <option>ETH</option>
-                                <option>BTC</option>
-                                <option>USD</option>
-                                <option>EOS</option>
-                            </select>
+                            <CurrencyDropDown fromOrTo='to' currencies={currencies} context={this} />
                         </td>
                     </tr>
                     <tr>

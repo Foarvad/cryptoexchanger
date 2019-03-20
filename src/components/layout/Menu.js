@@ -14,7 +14,7 @@ class Menu extends Component {
     constructor() {
         super();
         this.state = {
-            activeTab: 0
+            activeTab: window.location.pathname === '/' ? 0 : tabs.indexOf(window.location.pathname.split('/')[1])
         }
     }
     linkClick = e => {

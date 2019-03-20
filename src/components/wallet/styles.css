@@ -25,6 +25,10 @@
 }
 
 .crypto-price-exchange {
+    width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: default;
     background: #2d2d2d;
     color: #fff;
     padding: 5px;
