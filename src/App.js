@@ -6,8 +6,8 @@ import './App.css';
 import Header from './components/layout/Header';
 import Menu from './components/layout/Menu';
 import Footer from './components/layout/Footer';
-import Market from './components/Market/index';
-import Wallet from './components/Wallet/index';
+import Market from './components/Market';
+import Wallet from './components/Wallet';
 
 class App extends Component {
 
