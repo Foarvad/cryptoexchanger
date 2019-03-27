@@ -1,3 +1,5 @@
-// src/constants/action-types.js
+// src/constants/actionTypes.js
 
-export const ADD_ARTICLE = "ADD_ARTICLE";
+export const UPDATE_EXCHANGE_AMOUNT = 'UPDATE_EXCHANGE_AMOUNT';
+export const UPDATE_EXCHANGE_FROM = 'UPDATE_EXCHANGE_FROM';
+export const UPDATE_EXCHANGE_TO = 'UPDATE_EXCHANGE_TO';
