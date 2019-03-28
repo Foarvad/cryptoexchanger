@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import './styles.css';
 import { connect } from "react-redux";
-import { updateExchangeAmount, updateExchangeFrom, updateExchangeTo, updateExchangePair } from '../../actions';
+import { updateExchangeAmount, updateExchangeFrom, updateExchangeTo, updateExchangePair, updateBalance } from '../../actions';
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -11,6 +11,7 @@ function mapDispatchToProps(dispatch) {
         updateExchangeFrom: cryptoName => dispatch(updateExchangeFrom(cryptoName)),
         updateExchangeTo: cryptoName => dispatch(updateExchangeTo(cryptoName)),
         updateExchangePair: pair => dispatch(updateExchangePair(pair)),
+        updateBalance: balance => dispatch(updateBalance(balance))
     }
 }
 
@@ -20,7 +21,8 @@ function mapStateToProps(state) {
         exchangeFrom: state.exchangeFrom,
         exchangeTo: state.exchangeTo,
         exchangePair: state.exchangePair,
-        exchangeRate: state.exchangeRate
+        exchangeRate: state.exchangeRate,
+        balance: state.balance
     }
 }
 
@@ -30,16 +32,24 @@ class Exchange extends Component {
     constructor() {
         super();
         this.pairChange = this.pairChange.bind(this);
-        this.amountChange = this.amountChange.bind(this)
+        this.amountChange = this.amountChange.bind(this);
+        this.exchange = this.exchange.bind(this)
     }
     pairChange(e) {
         const { name, value } = e.target;
         if (name === 'from') {
-            this.props.updateExchangeFrom(value)
+            this.props.updateExchangeFrom(value);
             this.props.updateExchangePair(value.toLowerCase() + '-' + this.props.exchangeTo.toLowerCase())
-        } else {
-            this.props.updateExchangeTo(value)
+        }
+        if (name === 'to') {
+            this.props.updateExchangeTo(value);
             this.props.updateExchangePair(this.props.exchangeFrom.toLowerCase() + '-' + value.toLowerCase())
+        }
+        if (name === 'flip') {
+            let from = this.props.exchangeFrom;
+            this.props.updateExchangeFrom(this.props.exchangeTo);
+            this.props.updateExchangeTo(from);
+            this.props.updateExchangePair(this.props.exchangePair.split('-').reverse().join('-'))
         }
     }
 
@@ -48,9 +58,19 @@ class Exchange extends Component {
         this.props.updateExchangeAmount(value)
     }
 
-    exchange(e){
-        e.preventDefault();
-        
+    exchange() {
+        let from = this.props.exchangeFrom;
+        let to = this.props.exchangeTo;
+        let fromAmount = this.props.exchangeAmount;
+        let toAmount = this.props.exchangeAmount * this.props.exchangeRate[this.props.exchangePair];
+        if (fromAmount <= this.props.balance[from]) {
+            this.props.updateBalance({
+                ...this.props.balance,
+                [from]: this.props.balance[from] - fromAmount,
+                [to]: this.props.balance[to] + toAmount
+            });
+            this.props.updateExchangeAmount(0)
+        }
     }
 
     render() {
@@ -58,13 +78,16 @@ class Exchange extends Component {
             <table id="exchange-table">
                 <tbody>
                     <tr>
+                        <td colSpan="3"><img name="flip" id="flip-arrows" src={require("./img/flip.png")} alt="flip-arrow" onClick={this.pairChange} /></td>
+                    </tr>
+                    <tr>
                         <td className="exchange-td">
                             <select name='from' value={this.props.exchangeFrom} onChange={this.pairChange} className="exchange-select">
                                 {currencies.filter(curr => this.props.exchangeTo !== curr).map(curr => <option key={curr}>{curr}</option>)}
                             </select>
                         </td>
                         <td className="exchange-td">
-                            <div className="crypto-price-exchange" title={this.props.exchangeRate[this.props.exchangePair]}>{(this.props.exchangeRate[this.props.exchangePair]+'').slice(0, 7)}</div>
+                            <div className="crypto-price-exchange" title={this.props.exchangeRate[this.props.exchangePair]}>{(this.props.exchangeRate[this.props.exchangePair] + '').slice(0, 7)}</div>
                         </td>
                         <td className="exchange-td">
                             <select name='to' value={this.props.exchangeTo} onChange={this.pairChange} className="exchange-select">
@@ -75,10 +98,10 @@ class Exchange extends Component {
                     <tr>
                         <td className="exchange-td"><input id="exchange-amount" onChange={this.amountChange} value={this.props.exchangeAmount} type='text' /></td>
                         <td className="exchange-td"><img id="exchange-arrow" src={require("./img/arrow.png")} alt="convert-arrow" /></td>
-                        <td className="exchange-td" title={this.props.exchangeAmount*this.props.exchangeRate[this.props.exchangePair]}>{this.props.exchangeAmount*this.props.exchangeRate[this.props.exchangePair]}</td>
+                        <td className="exchange-td" title={this.props.exchangeAmount * this.props.exchangeRate[this.props.exchangePair]}>{this.props.exchangeAmount * this.props.exchangeRate[this.props.exchangePair]}</td>
                     </tr>
                     <tr>
-                        <td className="exchange-td" colSpan="3"><input id="exchange-submit" type="submit" value="Exchange" onClick={this.exchange}/>
+                        <td className="exchange-td" colSpan="3"><input id="exchange-submit" type="submit" value="Exchange" onClick={this.exchange} />
                         </td>
                     </tr>
                 </tbody>

@@ -16,12 +16,12 @@ class Balance extends Component {
             <table id="balance-table">
                 <tbody>
                     <tr>
-                        <td className="balance-td">USD: <b>{this.props.balance.USD}</b></td>
-                        <td className="balance-td">BTC: <b>{this.props.balance.BTC}</b></td>
+                        <td className="balance-td" title={this.props.balance.USD}>USD: <b>{(this.props.balance.USD + '').slice(0, 7)}</b></td>
+                        <td className="balance-td" title={this.props.balance.BTC}>BTC: <b>{(this.props.balance.BTC + '').slice(0, 7)}</b></td>
                     </tr>
                     <tr>
-                        <td className="balance-td">ETH: <b>{this.props.balance.ETH}</b></td>
-                        <td className="balance-td">EOS: <b>{this.props.balance.EOS}</b></td>
+                        <td className="balance-td" title={this.props.balance.ETH}>ETH: <b>{(this.props.balance.ETH + '').slice(0, 7)}</b></td>
+                        <td className="balance-td" title={this.props.balance.EOS}>EOS: <b>{(this.props.balance.EOS + '').slice(0, 7)}</b></td>
                     </tr>
                 </tbody>
             </table>

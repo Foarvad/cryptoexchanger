@@ -1,6 +1,6 @@
 // src/reducers/index.js
 
-import { UPDATE_EXCHANGE_AMOUNT, UPDATE_EXCHANGE_FROM, UPDATE_EXCHANGE_TO, UPDATE_EXCHANGE_RATE, UPDATE_EXCHANGE_PAIR } from "../constants/actionTypes";
+import { UPDATE_EXCHANGE_AMOUNT, UPDATE_EXCHANGE_FROM, UPDATE_EXCHANGE_TO, UPDATE_EXCHANGE_RATE, UPDATE_EXCHANGE_PAIR, UPDATE_BALANCE } from "../constants/actionTypes";
 const initialState = {
   exchangeRate: {},
   balance: {
@@ -40,6 +40,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         exchangePair: action.payload
+      }
+    case UPDATE_BALANCE:
+      return {
+        ...state,
+        balance: action.payload
       }
     default:
       return state
