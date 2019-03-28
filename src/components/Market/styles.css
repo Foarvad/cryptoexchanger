@@ -17,6 +17,9 @@
     background: #2d2d2d;
     color: #fff;
     border-radius: 15px;
+    max-width: 250px;
+    overflow: hidden;
+    cursor: default;
 }
 
 .crypto-logo {
