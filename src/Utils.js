@@ -1,3 +1,5 @@
+// src/Utlis.js
+
 export const fetchData = (that, pairs) => {
     for (let i in pairs) {
         let pair = pairs[i];

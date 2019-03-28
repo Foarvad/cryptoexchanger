@@ -13,21 +13,23 @@
 #exchange-table {
     width: 100%;
     font-size: 30px;
+    table-layout: fixed;
 }
 
 .exchange-td {
     padding: 5px 31px;
     text-align: center;
     font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: default;
 }
 
 #exchange-arrow {
-    width: 150px;
+    width: 100%
 }
 
 .crypto-price-exchange {
-    width: 150px;
-    text-overflow: ellipsis;
     overflow: hidden;
     cursor: default;
     background: #2d2d2d;

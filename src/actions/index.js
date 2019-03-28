@@ -1,6 +1,6 @@
 // src/actions/index.js
 
-import { UPDATE_EXCHANGE_AMOUNT, UPDATE_EXCHANGE_FROM, UPDATE_EXCHANGE_TO, UPDATE_EXCHANGE_RATE } from "../constants/actionTypes";
+import { UPDATE_EXCHANGE_AMOUNT, UPDATE_EXCHANGE_FROM, UPDATE_EXCHANGE_TO, UPDATE_EXCHANGE_RATE, UPDATE_EXCHANGE_PAIR } from "../constants/actionTypes";
 
 export function updateExchangeAmount(payload) {
   return { type: UPDATE_EXCHANGE_AMOUNT, payload };
@@ -13,4 +13,7 @@ export function updateExchangeTo(payload) {
 }
 export function updateExchangeRate(payload) {
   return { type: UPDATE_EXCHANGE_RATE, payload };
+}
+export function updateExchangePair(payload) {
+  return { type: UPDATE_EXCHANGE_PAIR, payload };
 }

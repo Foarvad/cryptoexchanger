@@ -38,13 +38,13 @@ class App extends Component {
             <Header text="CryptoExchanger" />
             <Menu />
             <div id="content">
-              {Object.keys(this.props.exchangeRate).length === pairs.length * 2 ?
-                <React.Fragment>
-                  <Route exact path="/" component={Market} />
-                  <Route exact path="/market" component={Market} />
-                  <Route exact path="/wallet" component={Wallet} />
-                </React.Fragment>
-                : <Preloader />
+              {
+                Object.keys(this.props.exchangeRate).length === pairs.length * 2 ?
+                  <React.Fragment>
+                    <Route exact path="/" component={Market} />
+                    <Route exact path="/market" component={Market} />
+                    <Route exact path="/wallet" component={Wallet} />
+                  </React.Fragment>:<Preloader />
               }
             </div>
             <Footer text="foarvad@gmail.com" />

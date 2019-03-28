@@ -1,3 +1,5 @@
+// src/components/layout/Preloader.js
+
 import React from 'react'
 
 function Preloader() {
