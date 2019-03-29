@@ -6,3 +6,14 @@
 * React
 * Redux
 * Cryptonator API
+
+Инструкция по запуску:
+Требуется установленный NodeJS https://nodejs.org/en/
+В директории проекта:
+Устанавливаем зависимости
+npm i
+Собираем проект
+npm run build
+Устанавливаем и запускаем статический веб сервер
+npm i serve@10.1.1 -g
+serve -s build
