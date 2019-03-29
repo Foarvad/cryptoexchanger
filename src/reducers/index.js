@@ -4,12 +4,18 @@ import { UPDATE_EXCHANGE_AMOUNT, UPDATE_EXCHANGE_FROM, UPDATE_EXCHANGE_TO, UPDAT
 const initialState = {
   exchangeRate: {},
   balance: {
-    USD: 0.55,
-    BTC: 0.00022,
-    ETH: 0,
-    EOS: 0
+    USD: 10000,
+    BTC: 0.5,
+    ETH: 10,
+    EOS: 100
   },
-  exchangeAmount: 0,
+  minExchange: {
+    USD: 0.01,
+    BTC: 0.00001,
+    ETH: 0.0001,
+    EOS: 0.0001
+  },
+  exchangeAmount: '0',
   exchangeFrom: 'BTC',
   exchangeTo: 'USD',
   exchangePair: 'btc-usd'

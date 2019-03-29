@@ -5,6 +5,8 @@ import './styles.css';
 import { connect } from "react-redux";
 import { updateExchangeAmount, updateExchangeFrom, updateExchangeTo, updateExchangePair, updateBalance } from '../../actions';
 
+const currencies = ['USD', 'BTC', 'ETH', 'EOS'];
+
 function mapDispatchToProps(dispatch) {
     return {
         updateExchangeAmount: value => dispatch(updateExchangeAmount(value)),
@@ -22,18 +24,18 @@ function mapStateToProps(state) {
         exchangeTo: state.exchangeTo,
         exchangePair: state.exchangePair,
         exchangeRate: state.exchangeRate,
-        balance: state.balance
+        balance: state.balance,
+        minExchange: state.minExchange
     }
 }
-
-const currencies = ['USD', 'BTC', 'ETH', 'EOS'];
 
 class Exchange extends Component {
     constructor() {
         super();
         this.pairChange = this.pairChange.bind(this);
         this.amountChange = this.amountChange.bind(this);
-        this.exchange = this.exchange.bind(this)
+        this.exchange = this.exchange.bind(this);
+        this.canBeExchanged = this.canBeExchanged.bind(this);
     }
     pairChange(e) {
         const { name, value } = e.target;
@@ -55,7 +57,8 @@ class Exchange extends Component {
 
     amountChange(e) {
         const { value } = e.target;
-        this.props.updateExchangeAmount(value)
+        if (!isNaN(+value))
+            value.includes('.') ? this.props.updateExchangeAmount(value) : this.props.updateExchangeAmount(+value + '')
     }
 
     exchange() {
@@ -63,7 +66,8 @@ class Exchange extends Component {
         let to = this.props.exchangeTo;
         let fromAmount = this.props.exchangeAmount;
         let toAmount = this.props.exchangeAmount * this.props.exchangeRate[this.props.exchangePair];
-        if (fromAmount <= this.props.balance[from]) {
+
+        if (this.canBeExchanged()) {
             this.props.updateBalance({
                 ...this.props.balance,
                 [from]: this.props.balance[from] - fromAmount,
@@ -73,12 +77,21 @@ class Exchange extends Component {
         }
     }
 
+    canBeExchanged() {
+        return this.props.exchangeAmount <= this.props.balance[this.props.exchangeFrom]
+            && +this.props.exchangeAmount !== 0
+            && +this.props.exchangeAmount >= this.props.minExchange[this.props.exchangeFrom]
+            ? true : false
+    }
+
     render() {
         return (
             <table id="exchange-table">
                 <tbody>
                     <tr>
-                        <td colSpan="3"><img name="flip" id="flip-arrows" src={require("./img/flip.png")} alt="flip-arrow" onClick={this.pairChange} /></td>
+                        <td className="exchange-td">Min: {this.props.minExchange[this.props.exchangeFrom]}</td>
+                        <td className="exchange-td"><img name="flip" id="flip-arrows" src={require("./img/flip.png")} alt="flip-arrow" title="Flip" onClick={this.pairChange} /></td>
+                        <td className="exchange-td"></td>
                     </tr>
                     <tr>
                         <td className="exchange-td">
@@ -101,7 +114,7 @@ class Exchange extends Component {
                         <td className="exchange-td" title={this.props.exchangeAmount * this.props.exchangeRate[this.props.exchangePair]}>{this.props.exchangeAmount * this.props.exchangeRate[this.props.exchangePair]}</td>
                     </tr>
                     <tr>
-                        <td className="exchange-td" colSpan="3"><input id="exchange-submit" type="submit" value="Exchange" onClick={this.exchange} />
+                        <td className="exchange-td" colSpan="3"><input id="exchange-submit" type="submit" value="Exchange" onClick={this.exchange} disabled={!this.canBeExchanged()} />
                         </td>
                     </tr>
                 </tbody>
